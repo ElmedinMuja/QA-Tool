@@ -9,15 +9,19 @@ from datetime import datetime
 
 
 """
+GOAL:  COMPARES METRICS BETWEEN TWO FILES [BASE AND COMP] 
+
 STEPS:
-1 - user will intiate exe
+1 - user will intiate script
 2 - UI will ask for two files to compare, base and comp. pass file path and hit submit
-3 - submit will look at files, get columns from both and put into two seperate lists
+3 - once submitted script will look at files, get columns from both and put into two seperate lists
 4 - new UI opens up asking to map the headers from a drop down menu based on the lists generated from the column list
 5 - selecting a header from each and hitting add will create a list of column pairs that will be compared 
 6 - WIP - add the column pairs on the bottom
 7 - execute will run the script, generate a file with the requested headers and the comparison on metrics
 
+NOTES:
+basefilemixed and compfilemixed are testing files
 
 """
 
@@ -249,7 +253,8 @@ while len(column_list) != 0 :
     # remove the value at index[0] so script can move onto the next headers user wants to compare
     column_list.pop(0)
 
-## save df to a csv file so use can open
+## create timestamp to append to end of filename
 timestamp = datetime.today().strftime('%Y%m%d%H%M%S') #yyymmddhhmmss
 filename = os.path.dirname(basefilepath) + '/' + 'MergedFile_' + timestamp+'.csv'
+## save df to a csv file so use can open
 merged_df.to_csv(filename,index=False)
