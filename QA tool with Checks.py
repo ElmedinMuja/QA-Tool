@@ -8,12 +8,11 @@ import datetime
 
 '''
 GOAL:
-Integrate checks for campaign name and placements before finding differenecs between two data sources/files 
-    on top of the already existing QA tool i created
+COMPARES METRICS BETWEEN TWO FILES [BASE AND COMP] 
+
 
 
 Notes:
-basefile and compfile are test files that are the same except the #s are 1 diff
 basefilemixed and compfilemixed are same as the OG but the palcements are moved around
 
 step by step:
@@ -21,12 +20,6 @@ step by step:
 2 - PART 2 - user creates a mapping list to match which columns to compare
 3 - PART 3 - creates a csv file and shows the campaign and the 
 
-
-NEXT STEPS:
-1 - CREATE UI
-    A) FIRST UI GETS THE FILES
-    B) SECOND HAS TWO DROP DOWNS FOR USER TO GIVE MAPPING
-    C) RETURN FILE INTO FOLDER
 '''
 # ## algos to keep in mind
 # print(base_df.iloc[:,0]) ## first column where 0 indicats index
@@ -149,48 +142,10 @@ while len(c_list) != 0 :
     # remove the value at index[0] so script can move onto the next headers user wants to compare
     c_list.pop(0)
 
-## save df to a csv file so use can open
+# create time stamp to append to filename
 now = datetime.datetime.now()
 timestamp = now.year, now.month, now.day, now.hour, now.minute, now.second
 filename = os.path.dirname(basefile_user_input) + '\\' + 'MergedFile.csv' + timestamp
-print(filename)
+## save df to a csv file so use can open
 merged_df.to_csv(filename,index=False)
-
-
-#
-#
-#
-#     placeholder_df = comp_df.loc[(comp_df['Campaign'] == base_campaign) & (comp_df['Placement'] == base_placement)]
-#     print(placeholder_df['clicks'])
-#     comp_column_value = placeholder_df[0,base_column]
-#     base_column_value = base_df[base_column][index]
-#     print(comp_column_value - base_column_value)
-#
-#     equals = comp_column_value - base_column_value
-#     merged_df[base_column] = comp_column_value - base_column_value
-#     # merged_df.loc[index,new_column] = comp_column_value - base_column_value
-#
-#
-#         # if the campaign/placement name in base file == campaign/placement name in comp
-#     if comp_campaign == base_campaign and comp_placement == base_placement:
-#         print(base_placement,comp_placement)
-#         # then extract the values of the accompanying columns as listed in the mapping list
-#
-#
-# ## old start;l works only if both files are matching campaigan and placements
-#         base_column = c_list[0][0] # first value in first list pair in c_list
-#         comp_column = c_list[0][1] # second value in first list pair in c_list
-#         base_column_value = base_df[base_column][index] # value for cell in row [index] in base
-#         comp_column_value = comp_df[comp_column][index] # value for cell in row [index] in comp
-#         equals = base_column_value - comp_column_value
-#         new_column = 'change of ' + base_column
-#         merged_df.loc[index,new_column] = equals
-# # ## old end
-
-#
-
-
-## why is it saying list index out of rane after a pop?
-## bc its trying to print an item that doesnt exist once the list is empty
-
 
